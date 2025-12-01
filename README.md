@@ -28,8 +28,8 @@ Below are the files found in the `files/` directory with a short description for
     - Generate client-side and server-side commands for connecting through the Bastion (SSH or PuTTY variants).
     - Optionally fork a shell and run the generated SSH/tunnel commands, wait for session expiry and recreate sessions.
     - Validates and populates configuration values, supports TTL and session polling until ACTIVE.
-  - Usage: Run the script with a JSON bastion config and a `--session` name; use `--exec` to actually execute the generated SSH commands.
-  - Notes: The script contains robust config validation utilities (`get_validated_config_entry`, `valdate_config`) and handles async execution for session-driven flows.
+
+For details view [BASTION.md]
 
 - `listresources.py`
   - Purpose: Resource extraction and reporting across compartments.
@@ -70,29 +70,9 @@ Below are the files found in the `files/` directory with a short description for
   - Usage: `python startstop.py --config-file instances.json --instance-name MyInstance --action start`
   - Notes: This script is more feature-rich than the bash wrapper and relies on the `oci` Python SDK; ensure credentials/config are available.
 
-Contributing
-------------
-Contributions welcome — open a PR or copy/modify scripts for your environment. When contributing, please:
+# License
 
-- Add unit tests where appropriate.
-- Ensure any new dependencies are added to a `requirements.txt` or `pyproject.toml`.
-- Include example config snippets for JSON files used by the scripts.
+Copyright (c) 2025 Oracle and/or its affiliates.
 
-.gitignore
------------
-A reasonable `.gitignore` is included in the project to ignore typical Python artifacts (virtualenvs, __pycache__, logs, editor files, etc.).
 
-Security and safety notes
--------------------------
-- These scripts perform operations that can change the state of cloud resources (start/stop instances, change NSG associations, create bastion sessions). Run them with care and preferably against non-production/test tenancy when experimenting.
-- Ensure that any private keys or sensitive credentials are kept out of the repository (use environment variables or secure secrets stores), and that config files containing secrets are added to `.gitignore`.
-
-Files modified/created
-----------------------
-- `README.md` — this file (created)
-- `.gitignore` — added to ignore common Python artifacts
-
-If you want I can also:
-- Initialize a local git repo here (run `git init`, create an initial commit) — I won't do that without your permission.
-- Add example config JSON files or small integration tests that exercise the key flows (bastion creation, start/stop). 
-
+Licensed under the Universal Permissive License (UPL), Version 1.0
