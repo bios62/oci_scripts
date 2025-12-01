@@ -1,6 +1,10 @@
-# oci_scripts
+# oci_scripts and smaller assets
+
+This is my collection of scripts and assets made over time to make my life easier.
+The assets are published as is.
 
 A small collection of Oracle Cloud Infrastructure (OCI) helper scripts used for common operational tasks: creating Bastion sessions, listing resources across compartments, exporting audit/log events to CSV, and starting/stopping compute instances (with optional NSG association changes).
+
 
 This repository is intended as a practical toolbox of scripts; each script is standalone and typically relies on either the OCI Python SDK (`oci`) or the OCI CLI.
 
@@ -21,6 +25,13 @@ Files directory
 ---------------
 Below are the files found in the `files/` directory with a short description for each and their intended usage.
 
+- `securing_exacs_or_dbcs_with_bastion_service_1.2.pdf`
+  - The documnet discuss lockdown of the OPC userr for ExaCS and DBaaS for Oracle OCI.
+  - The main idea is to utilize the OCi Bastion service to gain full control of OS access.
+
+  -  Please view [securing exacs or dbcs with bastion service](securing_exacs_or_dbcs_with_bastion_service_1.2.pdf)
+    
+      
 - `bastionsession.py`
   - Purpose: Full-featured Bastion service manager implemented with the OCI Python SDK.
   - Key features:
@@ -29,7 +40,8 @@ Below are the files found in the `files/` directory with a short description for
     - Optionally fork a shell and run the generated SSH/tunnel commands, wait for session expiry and recreate sessions.
     - Validates and populates configuration values, supports TTL and session polling until ACTIVE.
 
-For details view [BASTION.md]
+For details view [BASTION.md](BASTION.md)
+The script is located at [Oracle Technology Engineering](https://github.com/oracle-devrel/technology-engineering/tree/main/security/security-design/shared-assets/bastion-py-script) git repo
 
 - `listresources.py`
   - Purpose: Resource extraction and reporting across compartments.
