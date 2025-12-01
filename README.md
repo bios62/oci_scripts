@@ -16,6 +16,13 @@ Prerequisites
 - OCI CLI (for some bash-based helpers)
 - An OCI config file at the default location (`~/.oci/config`) or supplied via script arguments
 
+### Documentation 
+API Key
+[https://docs.oracle.com/en-us/iaas/Content/API/Concepts/devguidesetupprereq.htm](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/devguidesetupprereq.htm) 
+OCI CLI and SDk config file
+[https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm)
+
+
 
 Files directory
 ---------------
