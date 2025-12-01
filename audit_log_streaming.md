@@ -4,15 +4,7 @@ This repository contains a small utility (oci_audit_streamer.py) that efficientl
 
 ### Prerequisites
 
-- Python 3.6+ (3.8+ recommended)
-- OCI Python SDK
-- A valid OCI config file (default: `~/.oci/config`) with the profile you want to use
-
-Install the OCI SDK:
-
-```bash
-pip install oci
-```
+Please refer to README above
 
 ### Quick overview
 
@@ -34,6 +26,7 @@ python oci_audit_streamer.py \
 ```
 
 Replace the example Tenancy/Compartment OCID with your OCID.
+
 
 #### Arguments
 
