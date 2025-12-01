@@ -31,6 +31,8 @@ Below are the files found in the `files/` directory with a short description for
 
 - `logstreamer.py` [File](files/logstreamer.py)
 
+[logstreamer README](AUDIT_LOG_STREAMING.md)
+
 
 - `bastionsession.py` [File](files/bastionsession.py)
   - Purpose: Full-featured Bastion service manager implemented with the OCI Python SDK.
