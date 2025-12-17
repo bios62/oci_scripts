@@ -9,6 +9,7 @@ Please refer to README above
 ### Quick overview
 
 - The script pages through the Audit API results and writes events incrementally to a single JSON file.
+- All Audit events are at root, tenancy level
 - If the requested date range is longer than 14 days, the script breaks it into 14-day (or smaller) chunks and queries each chunk sequentially.
 - Within each chunk the script fetches all pages of events and streams them to disk to avoid large memory footprints.
 
@@ -18,8 +19,8 @@ Run the script with the required arguments:
 
 ```bash
 python oci_audit_streamer.py \
-  --startdate 2024-01-01 \
-  --enddate 2024-01-31 \
+  --startdate 01.11.2025 \
+  --enddate 30.11.2025 \
   --profilename DEFAULT \
   --outputfile jan_2024_audit.json \
   --eventfilter ocid1.compartment.oc1..aaaaaaaaxxxxxx
@@ -36,7 +37,7 @@ Replace the example Tenancy/Compartment OCID with your OCID.
 - `--enddate` — End date (inclusive). Format: `YYYY-MM-DD` (e.g. `2024-01-31`). The script treats the end date as the end of that day.
 - `--profilename` — OCI profile name from your `~/.oci/config` (default profile commonly `DEFAULT`).
 - `--outputfile` — Path to the output JSON file. The script writes a single valid JSON array containing all events.
-- `--eventfilter` — The OCID of the compartment (often the tenancy/root compartment OCID) to query for Audit events.
+- `--eventfilter` — a comma separated list of events that is filtered and saved.
 
 ** Relevant and typical IAM events to use as filter **
 

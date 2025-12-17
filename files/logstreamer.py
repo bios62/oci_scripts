@@ -2,7 +2,9 @@ import argparse
 import datetime
 import json
 import sys
+import pickle
 import time
+import re
 from typing import List, Tuple, Generator, Dict, Any, Optional
 
 # Attempt to import OCI SDK modules
@@ -12,9 +14,17 @@ try:
     from oci.config import from_file
     from oci.pagination import list_call_get_all_results
     from oci.exceptions import ServiceError
+    from oci.util import to_dict
 except ImportError:
     print("Error: OCI SDK is not installed. Please install it using 'pip install oci'")
     sys.exit(1)
+
+
+# Global string keys used when indexing dictionaries returned by the OCI SDK
+TENANCY = "tenancy"
+KEY_DATA = "data"
+KEY_EVENT_TYPE = "event_type"
+KEY_EVENT_NAME = "event_name"
 
 
 # --- Custom JSON Encoder for OCI SDK Objects and datetime ---
@@ -43,22 +53,22 @@ class OciAuditStreamer:
     """Handles OCI configuration, date chunking, and streaming of audit events."""
     
     # OCI Audit API has a practical time range limit of 14 days per request.
-    MAX_CHUNK_DAYS = 14
+    MAX_CHUNK_DAYS = 7
     
-    def __init__(self, compartment_ocid: str, profile_name: str, 
+    def __init__(self,  profile_name: str, 
                  start_date: str, end_date: str, oci_config_path: Optional[str] = None):
         """
         Initializes the streamer with configuration and date parameters.
         
-        :param compartment_ocid: The OCID of the compartment to query logs from.
         :param profile_name: The profile name from the OCI config file.
-        :param start_date: The start date in YYYY-MM-DD format.
-        :param end_date: The end date in YYYY-MM-DD format.
+        :param start_date: The start date in DD.MM.YY format.
+        :param end_date: The end date in DD.MM.YY format.
         :param oci_config_path: Optional path to the OCI config file.
         """
-        self.compartment_ocid = compartment_ocid
+
         self.profile_name = profile_name
         self.oci_config_path = oci_config_path
+        self.oci_config = None
         
         # Convert date strings to datetime objects
         self.start_dt = self._parse_date(start_date)
@@ -66,16 +76,17 @@ class OciAuditStreamer:
 
         # Initialize OCI Client
         self.audit_client = self._initialize_client()
+        self.compartment_ocid = self.oci_config[TENANCY]
 
     def _parse_date(self, date_str: str) -> datetime.datetime:
-        """Parses YYYY-MM-DD string into a datetime object (midnight UTC)."""
+        """Parses DD.MM.YY string into a datetime object (midnight UTC)."""
         try:
             # Set time to midnight UTC for the start of the day
-            return datetime.datetime.strptime(date_str, '%Y-%m-%d').replace(
+            return datetime.datetime.strptime(date_str, '%d.%m.%y').replace(
                 hour=0, minute=0, second=0, microsecond=0, tzinfo=datetime.timezone.utc
             )
         except ValueError:
-            print(f"Error: Date '{date_str}' is not in the required YYYY-MM-DD format.")
+            print(f"Error: Date '{date_str}' is not in the required DD.MM.YY format.")
             sys.exit(1)
 
     def _initialize_client(self) -> AuditClient:
@@ -83,11 +94,11 @@ class OciAuditStreamer:
         try:
             # Load OCI configuration from the specified path or default location
             if self.oci_config_path:
-                config = from_file(file_location=self.oci_config_path, profile_name=self.profile_name)
+                self.oci_config = from_file(file_location=self.oci_config_path, profile_name=self.profile_name)
             else:
-                config = from_file(profile_name=self.profile_name)
+                self.oci_config = from_file(profile_name=self.profile_name)
             
-            return AuditClient(config)
+            return AuditClient(self.oci_config)
         except Exception as e:
             print(f"Error initializing OCI client with profile '{self.profile_name}': {e}")
             sys.exit(1)
@@ -138,8 +149,8 @@ class OciAuditStreamer:
                     end_time=chunk_end
                 )
 
-                # Iterate through all paginated results and yield the event object
                 for event in list_events_response.data:
+                #for event in jpayload:
                     yield event
                     event_count += 1
                 
@@ -157,17 +168,20 @@ class OciAuditStreamer:
 
 # --- Utility Function for Streaming to File ---
 
-def stream_to_json_file(data_generator: Generator, output_file_path: str):
+def stream_to_json_file(data_generator: Generator, output_file_path: str, eventfilter :str):
     """
     Writes the data stream (generator) to a file as a single, valid JSON array.
     """
     print(f"Writing results to file: {output_file_path}...")
     
+    if eventfilter is not None:
+        filters=eventfilter.split(';')
     try:
+        all_events={}
         with open(output_file_path, 'w', encoding='utf-8') as f:
             # 1. Write the opening bracket for the JSON array
             f.write('[\n')
-            
+   
             is_first = True
             for item in data_generator:
                 # 2. Add comma separator before all items except the first
@@ -175,10 +189,28 @@ def stream_to_json_file(data_generator: Generator, output_file_path: str):
                     f.write(',\n')
                 
                 # 3. Serialize the item (handles OCI objects and datetimes via custom encoder)
-                f.write(json.dumps(item, indent=2, cls=OciCustomEncoder))
-                
-                is_first = False
-            
+                jitem=to_dict(item)
+                #
+                # only serialize events of interest using regexp
+                #
+                if eventfilter is None:
+                    f.write(json.dumps(jitem, indent=2))
+                    is_first = False
+                else:
+                    for single_filter in filters:
+                        in_filter=re.search(single_filter, jitem[KEY_DATA][KEY_EVENT_TYPE])
+                        if in_filter:
+                            f.write(json.dumps(jitem, indent=2))
+                            is_first = False
+                            break
+                #
+                # Collect all event types (One time job
+                #
+                event_value=jitem[KEY_DATA][KEY_EVENT_NAME]
+                if event_value in all_events:
+                    all_events[event_value]+=1
+                else:
+                    all_events[event_value]=0
             # If data was written, ensure the last object is followed by a newline before closing.
             if not is_first:
                  f.write('\n')
@@ -187,7 +219,9 @@ def stream_to_json_file(data_generator: Generator, output_file_path: str):
             f.write(']\n')
 
         print(f"Successfully streamed audit logs to {output_file_path}")
-        
+        ff=open('allevents.json','w')
+        ff.write(json.dumps(all_events))
+        ff.close()
     except IOError as e:
         print(f"Error writing to file {output_file_path}: {e}")
     except Exception as e:
@@ -202,12 +236,12 @@ def main():
     )
     
     # Required arguments
-    parser.add_argument('--startdate', required=True, help="Start date in YYYY-MM-DD format (e.g., 2024-01-01).")
-    parser.add_argument('--enddate', required=True, help="End date in YYYY-MM-DD format (e.g., 2024-01-31). The query fetches up to the end of this day.")
+    parser.add_argument('--startdate', required=True, help="Start date in DD.MM.YY format (e.g., 01.12.2025).")
+    parser.add_argument('--enddate', required=True, help="End date in DD.MM.YY format (e.g., 01.12.2025). The query fetches up to the end of this day.")
     parser.add_argument('--profilename', required=True, help="The profile name in your OCI configuration file (e.g., DEFAULT).")
     parser.add_argument('--outputfile', required=True, help="The path and filename for the output JSON file (e.g., audit_logs.json).")
     # Using 'eventfilter' for the required Compartment OCID, as explained in the prompt analysis.
-    parser.add_argument('--eventfilter', dest='compartment_ocid', required=True, 
+    parser.add_argument('--eventfilter', required=False, 
                         help="OCI Compartment OCID (e.g., ocid1.compartment.oc1..aaaaaa...) to fetch audit logs from. This argument is used as the compartment_id.")
 
     # Optional argument
@@ -218,7 +252,6 @@ def main():
     # 1. Initialize the Streamer
     try:
         streamer = OciAuditStreamer(
-            compartment_ocid=args.compartment_ocid,
             profile_name=args.profilename,
             start_date=args.startdate,
             end_date=args.enddate,
@@ -232,7 +265,7 @@ def main():
     event_generator = streamer.fetch_events_generator()
 
     # 3. Stream results to the JSON file
-    stream_to_json_file(event_generator, args.outputfile)
+    stream_to_json_file(event_generator, args.outputfile,args.eventfilter)
 
 
 if __name__ == '__main__':
