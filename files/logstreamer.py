@@ -23,8 +23,9 @@ except ImportError:
 # Global string keys used when indexing dictionaries returned by the OCI SDK
 TENANCY = "tenancy"
 KEY_DATA = "data"
-KEY_EVENT_TYPE = "event_type"
+#KEY_EVENT_TYPE = "event_type"
 KEY_EVENT_NAME = "event_name"
+DEBUG=False
 
 
 # --- Custom JSON Encoder for OCI SDK Objects and datetime ---
@@ -176,57 +177,60 @@ def stream_to_json_file(data_generator: Generator, output_file_path: str, eventf
     
     if eventfilter is not None:
         filters=eventfilter.split(';')
-    try:
-        all_events={}
-        with open(output_file_path, 'w', encoding='utf-8') as f:
-            # 1. Write the opening bracket for the JSON array
-            f.write('[\n')
-   
-            is_first = True
-            for item in data_generator:
-                # 2. Add comma separator before all items except the first
-                if not is_first:
-                    f.write(',\n')
-                
-                # 3. Serialize the item (handles OCI objects and datetimes via custom encoder)
-                jitem=to_dict(item)
-                #
-                # only serialize events of interest using regexp
-                #
-                if eventfilter is None:
-                    f.write(json.dumps(jitem, indent=2))
-                    is_first = False
-                else:
-                    for single_filter in filters:
-                        in_filter=re.search(single_filter, jitem[KEY_DATA][KEY_EVENT_TYPE])
-                        if in_filter:
-                            f.write(json.dumps(jitem, indent=2))
-                            is_first = False
-                            break
-                #
-                # Collect all event types (One time job
-                #
-                event_value=jitem[KEY_DATA][KEY_EVENT_NAME]
-                if event_value in all_events:
-                    all_events[event_value]+=1
-                else:
-                    all_events[event_value]=0
-            # If data was written, ensure the last object is followed by a newline before closing.
-            if not is_first:
-                 f.write('\n')
-            
-            # 4. Write the closing bracket
-            f.write(']\n')
+    #try:
+    all_events={}
+    with open(output_file_path, 'w', encoding='utf-8') as f:
+        # 1. Write the opening bracket for the JSON array
+        f.write('[\n')
 
-        print(f"Successfully streamed audit logs to {output_file_path}")
-        ff=open('allevents.json','w')
-        ff.write(json.dumps(all_events))
-        ff.close()
-    except IOError as e:
+        is_first = True
+        for item in data_generator:
+            # 2. Add comma separator before all items except the first
+            if not is_first:
+                f.write(',\n')
+            
+            # 3. Serialize the item (handles OCI objects and datetimes via custom encoder)
+            jitem=to_dict(item)
+            #
+            # only serialize events of interest using regexp
+            #
+            if eventfilter is None:
+                f.write(json.dumps(jitem, indent=2))
+                is_first = False
+            else:
+                for single_filter in filters:
+                    print(type(single_filter))
+                    print(type(jitem[KEY_DATA][KEY_EVENT_NAME]))
+                    print(jitem[KEY_DATA][KEY_EVENT_NAME])
+                    in_filter=re.search(single_filter, jitem[KEY_DATA][KEY_EVENT_NAME])
+                    if in_filter:
+                        f.write(json.dumps(jitem, indent=2))
+                        is_first = False
+                        break
+            #
+            # Collect all event types (One time job
+            #
+            event_value=jitem[KEY_DATA][KEY_EVENT_NAME]
+            if event_value in all_events:
+                all_events[event_value]+=1
+            else:
+                all_events[event_value]=0
+        # If data was written, ensure the last object is followed by a newline before closing.
+        if not is_first:
+                f.write('\n')
+        
+        # 4. Write the closing bracket
+        f.write(']\n')
+
+    print(f"Successfully streamed audit logs to {output_file_path}")
+    ff=open('allevents.json','w')
+    ff.write(json.dumps(all_events))
+    ff.close()
+    '''except IOError as e:
         print(f"Error writing to file {output_file_path}: {e}")
     except Exception as e:
         print(f"An error occurred during JSON streaming: {e}")
-
+    '''
 
 # --- Argument Parsing and Execution ---
 

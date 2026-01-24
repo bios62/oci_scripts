@@ -211,7 +211,7 @@ def main():
     )
 
     args_parser.add_argument(
-        "--config-file",
+        "--configfile",
         required=True,
         default=None,
         help="path to instance config file",
@@ -233,7 +233,7 @@ def main():
 
     # Open and parse the config JSON file
     try:
-        with open(args.config_file) as fh:
+        with open(args.configfile) as fh:
             config = json.load(fh)
     except Exception as exc:
         print(f"Failed to open/parse config file: {exc}")
@@ -260,7 +260,8 @@ def main():
             break
 
     if instance_config is None:
-        print(f"Instance name {instance_name} not defined in config file {args.config_file}")
+        #print(f"Instance name {instance_name} not defined in config file {args.config_file}")
+        print('Instance name is not set')
         return 1
 
     # Validate presence of mandatory parameters in the instance config
