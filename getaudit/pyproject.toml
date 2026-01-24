@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "getaudit"
+version = "0.1.0"
+description = "OCI Audit Log Exporter - stream OCI Audit events to JSON"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [ { name = "bios62" } ]
+dependencies = ["oci"]
+
+[project.urls]
+"Repository" = "https://example.com/"
+
+[project.scripts]
+getaudit = "getaudit:main"
+
+[tool.setuptools]
+# Include top-level module `getaudit.py` as a py_module so installing the package
+# makes the module available for `import getaudit` and the console script entrypoint.
+py-modules = ["getaudit"]
