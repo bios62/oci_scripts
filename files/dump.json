@@ -1,0 +1,222 @@
+[
+  {
+    "availability_domain": "wTjm:EU-FRANKFURT-1-AD-1",
+    "capacity_reservation_id": null,
+    "compartment_id": "ocid1.compartment.oc1..aaaaaaaaolegsv7xp5c5hiyri63jxm6l7s3gsttz5btgwk3zai3q2bs4jdja",
+    "placement_constraint_details": null,
+    "cluster_placement_group_id": null,
+    "dedicated_vm_host_id": null,
+    "defined_tags": {},
+    "security_attributes": {},
+    "security_attributes_state": "STABLE",
+    "display_name": "7188463|BDCSCE|bigdatafrode|bdcsce|vm-1",
+    "extended_metadata": {
+      "serviceVM": {
+        "0": {
+          "hostname": "bigdatafrode-bdcsce-1",
+          "component": "bdcsce",
+          "role": "ADMIN",
+          "this": true,
+          "fqHostName": "bigdatafrode-bdcsce-1.svcsubnetad1.svcvcn.oraclevcn.com",
+          "type": "MASTER_VM"
+        }
+      },
+      "storage_type": "cloud",
+      "componentType": "bdcsce",
+      "toolsRoot": "/u01/app/oracle/tools/bdce",
+      "keymap": {
+        "0": {
+          "name": "_VM_USER_SSH_CRED_",
+          "sshkey": null,
+          "user": "opc"
+        },
+        "1": {
+          "name": "_OTOOLS_USER_CRED_",
+          "sshkey": null,
+          "user": "otools",
+          "publicKeyText": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfOvIvkCuxEbFwVAMhWBsN/ZKOtnhJQLOkEXK3jE1LmLzohlV2416L5TXCuxfllwJN9L6PJ5+tXTJKWdeC2PyAgj4h6PtI+2bJLblIWr4+RWl5dNrYnhaihHfkR8rkUAubfcs7Q50uSyJCOg3qN+9PdykRtNLTKjOxVucDJa/N0LQvAnaEOK9NMDRkdRXi4SxNIGOmmABuJ8vuPXW5khueWQYFRVm+rc0lFc+HkuixccGE0pzzS3M+CxTf+1JhGT/OF6qLvV8mtLxYQ7Dxl4nOyseiEYC1p8h9QvIN/lAjpxDQQAd8zY52HE+7eisuCjPoqW0SQ/aA1GyUD6Ty00m7 otools"
+        },
+        "2": {
+          "name": "_VM_OTOOLS_USER_CRED_",
+          "sshkey": null,
+          "user": "otools",
+          "publicKeyText": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDaFbQhy/KPV8VsRZxka3r9ureW/7U4+f8EAth7Y9Pj/yE8KMGkkgTKnk5SDfOAcWq2pFOR0K+lkES8PwX0IvJANpv06GBSPMjF+CKL6R41Fo33AGjVg+o9oOc1ppo3Q6G9s+K8MHUya6zkoRJo2Dov4FBZxxdp8lDV1diPWt1CDruEMYMz0FmmE4Ko9gxNzwathop6pmASLgIs31D2bsV7bqaGPtr1LiN4AfyV+bwSULQAZC39vsAdLbJQUDAFMlUSGXjwn+V0wYaMy7rpxkU6sQ6P1EGCDRgLzrOruGKbmvINkIUgPhGk7tsZDQV/iUUhh1sOUAFh2Gx2mIo8HzUd otools"
+        },
+        "3": {
+          "name": "_OPC_INIT_",
+          "sshkey": null,
+          "user": "opc",
+          "publicKeyText": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgPckrSQ1GuubsDjKsLVZMQNi/1WEx7X+d4XNcyN+MExzSZHPhT21IVM+JHLglZVy+KG4yQg4l5gWB96NvK/7KoQ1oyDa5O4AHLMNJauWPUJVEh4IpUm7alAyZmINwN4wjRGBEm4RSEHgjj8IoT3IDGQ9Ss5eT33zURj+XyfKcy4wrM6ULDgENZWTVOLExdTQ4DSSJGUAoHXN6+OpvV16y0VyGiFmp4h/1JOVbE/elSsk0+cLPLMwkgr9+aGY0u7F7uCL/9d31Vn5ZGi6rbov5kvmbynl0Hy0dnER2084IYvHon+6ItLHn5TaR4Dd6oNsFF589VeCX6W4R66oFOD/T opcinitkey"
+        },
+        "4": {
+          "name": "_ORACLE_USER_CRED_",
+          "sshkey": null,
+          "user": "oracle",
+          "publicKeyText": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCTgrf2Rj+PchyL8rObdZx8j2qub42L2GobMetqMrUR/NBUim5AHuk/ulCP7tdaassMJ64LBNynjdoTrwwIpGCIrW2eLGM6ew4q9SATrojbk/dzHo5sAZRYtsqel0rzUIeYAXOSiBvrv1o1KNL9Jy0iqitXiHNWZn5G047WLFfaZ6M/oo9HskHJadq00BhGo9YSxHPYAPgZgW/LJh+loM+/aoQp23MJJGtEq/JgWkKTOhgaCvlXeSUoI5V38FbS5dC5GoCuNR3yyzzN5wazTlGRIl6IvRoSMRIv5I8MrNgZj57jG2jBczqnjYFb4vIey58Ywe007DK44H7dPMQ9BE1B oracle"
+        },
+        "5": {
+          "name": "_VM_ORACLE_USER_CRED_",
+          "sshkey": null,
+          "user": "oracle",
+          "publicKeyText": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCCnhrjc8ZVVPC/PL/UHtv/shJcVbCrrYvR6+d5yALot8p6t+hn6eJSTKceUdJcxZxwsdCdURacHIKhIN4dYrGzvWNQWlIMEvRJH9pNCyNWF4N+h/mK3TxRzpC8towUPpsgA/K4XJC+1eD7frfOC1k1YiviN7a9NgV3V9kgihgEdqY/d2rqRNy5dAFm4a2W28cbBUgekg4kHkbn46/geptyaTUuBUJoSY9x/t6x5dZSnvWNKEi1aIlgmPVhhtQa5I9uF1QXU4T/nc1+D9EaQSYlRr0hibmGl74d8SDwtv38ywa0tYIr9l8jKBtB2gJXs9WDnHMDMGT7/aOPkIgVgleN oracle"
+        }
+      },
+      "pbNetworkEncryptionKey": "aes-256:keyfile=/etc/pb.key",
+      "isPAMOauthclientKey": true,
+      "platformToolsPath": "/u01/app/oracle/tools/paas/bin/platform",
+      "storage_map": {
+        "bin": {
+          "size": "50G",
+          "device": "/dev/sdb",
+          "mountpoint": "/u01/bdcsce"
+        },
+        "adata": {
+          "size": "50G",
+          "device": "/dev/sdd",
+          "mountpoint": "/adata"
+        },
+        "data": {
+          "size": "102G",
+          "device": "/dev/sde",
+          "mountpoint": "/data"
+        },
+        "tools": {
+          "partitionRange": "1048576B 53687090688B",
+          "size": "50G",
+          "partitionOn": "/dev/sdc",
+          "device": "/dev/sdc1",
+          "mountpoint": "/u01/app/oracle/tools"
+        }
+      },
+      "isManagementVnicEnabled": true,
+      "platformStorageContainer": "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/_AQlKwVpjHimHLCpm4ZtvD4NROmF3rXx14CwlMxzujM7Lk-y8P2-B2VdDsF1Rjnj/n/opc005/b/PaaSProvisioning/o",
+      "isManaged": false,
+      "storageContainer": "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/_AQlKwVpjHimHLCpm4ZtvD4NROmF3rXx14CwlMxzujM7Lk-y8P2-B2VdDsF1Rjnj/n/opc005/b/PaaSProvisioning/o",
+      "userdata": {
+        "build_id": "18.4.4-1812120032",
+        "bdcsce_version": "18.4.4-20-1812120032",
+        "service_name": "bigdatafrode",
+        "identity_domain": "idcs-87026c4b668b447bbd54b935fdd0cd0c",
+        "tenant": "idcs-87026c4b668b447bbd54b935fdd0cd0c",
+        "storage_container": "null",
+        "queue_profile": "SHARED",
+        "operation_type": "null",
+        "balance_hdfs": "null",
+        "num_prefix_data_vols": "0",
+        "hdfs_storage_per_node": "102",
+        "bdfs_cache_storage_per_node": "50",
+        "dbcs_connect_desc": "dbcs_null=null",
+        "mysql_connect_desc": "mysqlcs_null=null",
+        "kafka_endpoints": "oehcs_null=null",
+        "deployment_profile": "FULL",
+        "idcs_enabled": "false",
+        "spark_version": "2_1",
+        "oci_storage_fingerprint": "71:4d:e8:66:41:38:57:84:08:dc:5e:6f:09:3d:11:56",
+        "oci_storage_bucket": "oci://journeyC@nose/",
+        "oci_storage_userid": "ocid1.user.oc1..aaaaaaaakqh5uhsty46ifyvnkw7pvmjft5tdo64acgjxxnyfcqmbvogdhiaq",
+        "oci_storage_tenantid": "ocid1.tenancy.oc1..aaaaaaaaflf2uasr2shm5ag2yulp4gjy3aoqvwvvbcmvuk52fndnkps3byra",
+        "oci_storage_container_url": "https://objectstorage.eu-frankfurt-1.oraclecloud.com/",
+        "unsupported_features": "null",
+        "idcsCustomerTenantUrl": "https://idcs-87026c4b668b447bbd54b935fdd0cd0c.identity.oraclecloud.com:443",
+        "idcsCustomerClientID": "null",
+        "idcsAppId": "null",
+        "pre-bootstrap": {
+          "scriptURL": "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/_AQlKwVpjHimHLCpm4ZtvD4NROmF3rXx14CwlMxzujM7Lk-y8P2-B2VdDsF1Rjnj/n/opc005/b/PaaSProvisioning/o/PLATFORM/18.4.6-0-1901220151/install-and-start-service.sh",
+          "failonerror": true
+        },
+        "opc-init": "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/_AQlKwVpjHimHLCpm4ZtvD4NROmF3rXx14CwlMxzujM7Lk-y8P2-B2VdDsF1Rjnj/n/opc005/b/PaaSProvisioning/o/PLATFORM/15.4.6-111420150505/opc-init.zip",
+        "oss_timeout": "60",
+        "oss_retries": "6"
+      },
+      "servers": {
+        "0": {
+          "name": "MASTER-1",
+          "type": "MASTER",
+          "properties": {}
+        }
+      },
+      "pbMasterList": "pb-mpaas-sharedsvc.eucom-central-1.oraclecloud.com",
+      "storageType": "cloud",
+      "artifacts": {
+        "PLATFORM_TOOLS": {
+          "cloudKey": "PLATFORM/18.4.6-0-1901220151/sm-platform-tools.zip"
+        },
+        "BDCSCE": {
+          "cloudKey": "BDCE/2.0-18.4.4-1812120032/bdcsce.tar.gz"
+        },
+        "SERVICE_TOOLS": {
+          "bdcsce": {
+            "cloudKey": "BDCE/2.0-1812120032/bdcsce-service-tools.zip"
+          }
+        }
+      },
+      "is_locked_down": false,
+      "enableSELinux": false,
+      "is_parallel_vol_attach": false
+    },
+    "fault_domain": "FAULT-DOMAIN-1",
+    "freeform_tags": {},
+    "id": "ocid1.instance.oc1.eu-frankfurt-1.abtheljtx7gsi36u32egp65cgim6hzdpg7urhtijhj4yj47jfc5jkwrymuna",
+    "image_id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaapqvf4aq7cssovim5dp4ihtk5ln2bvrxuprc4n2ef42pjdkqtymlq",
+    "ipxe_script": null,
+    "launch_mode": "NATIVE",
+    "launch_options": {
+      "boot_volume_type": "ISCSI",
+      "firmware": "UEFI_64",
+      "network_type": "VFIO",
+      "remote_data_volume_type": "PARAVIRTUALIZED",
+      "is_pv_encryption_in_transit_enabled": null,
+      "is_consistent_volume_naming_enabled": null
+    },
+    "instance_options": null,
+    "availability_config": {
+      "is_live_migration_preferred": null,
+      "recovery_action": "RESTORE_INSTANCE"
+    },
+    "preemptible_instance_config": null,
+    "lifecycle_state": "STOPPED",
+    "metadata": {
+      "ssh_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcUt7aHKoPed4WbPGPT20fDfhaRu/dfN3gfUMChKU8h0D0y39w1YC7X0X81PaXQMonW4Rw0uE4MbeksIZHTTGvhcbGwZvx8mpLWvRizv2o1odjJ0wqD5568i38ex49mUuUaMZ4af1K1VU/vxm2wUGkutnesXvKc8DD6bDiaAb523fKsEjkhgxAXlmsOt51VxtZ1e2z4LaZzmpOS85TbBxdF3vZ37Cdnettl1Z3/Xw31k7PWWJTrC/3MKW7y1hAdnpPffQ1EVTkoxqeOax46ibAx5JvtpQaQZ2PCASERF8zx2dWA95aptxTa2OanpinrfcvWJzac8dQgO9sDeuB6tXv\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgPckrSQ1GuubsDjKsLVZMQNi/1WEx7X+d4XNcyN+MExzSZHPhT21IVM+JHLglZVy+KG4yQg4l5gWB96NvK/7KoQ1oyDa5O4AHLMNJauWPUJVEh4IpUm7alAyZmINwN4wjRGBEm4RSEHgjj8IoT3IDGQ9Ss5eT33zURj+XyfKcy4wrM6ULDgENZWTVOLExdTQ4DSSJGUAoHXN6+OpvV16y0VyGiFmp4h/1JOVbE/elSsk0+cLPLMwkgr9+aGY0u7F7uCL/9d31Vn5ZGi6rbov5kvmbynl0Hy0dnER2084IYvHon+6ItLHn5TaR4Dd6oNsFF589VeCX6W4R66oFOD/T opcinitkey",
+      "user_data": "H4sIAAAAAAAAAG2Oyw6CMBQF93xFgwtW7W2NGGWnCxMTDQT4gVJeVeglfejva3Rn3M5J5sxKTRhaqtD0eogiG4ya2ywihJJEBTuRePR+cRmAe+reY3PrlHcerRw61gXaW2nufbCeCvaGauo+QqZwhocAXBTnKRRSVoXFh3YajTYDFJdDfcrLK4gd27At5VTsuVivuUgFLFI62ljdvi/cGBOKBPy8/PDkG9lIN/6byelcVvUxz+skegF2Vbf65QAAAA==",
+      "host_name": "bigdatafrode-bdcsce-1.svcsubnetad1.svcvcn.oraclevcn.com"
+    },
+    "region": "eu-frankfurt-1",
+    "shape": "VM.Standard2.4",
+    "shape_config": {
+      "ocpus": 4.0,
+      "memory_in_gbs": 60.0,
+      "baseline_ocpu_utilization": null,
+      "processor_description": "2.0 GHz Intel\u00ae Xeon\u00ae Platinum 8167M (Skylake)",
+      "networking_bandwidth_in_gbps": 4.1,
+      "max_vnic_attachments": 4,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "vcpus": 8
+    },
+    "is_cross_numa_node": false,
+    "source_details": {
+      "source_type": "image",
+      "boot_volume_size_in_gbs": null,
+      "image_id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaapqvf4aq7cssovim5dp4ihtk5ln2bvrxuprc4n2ef42pjdkqtymlq",
+      "kms_key_id": null,
+      "boot_volume_vpus_per_gb": null,
+      "instance_source_image_filter_details": null
+    },
+    "system_tags": {},
+    "time_created": "2019-02-14T00:30:46.898000+00:00",
+    "agent_config": {
+      "is_monitoring_disabled": true,
+      "is_management_disabled": true,
+      "are_all_plugins_disabled": true,
+      "plugins_config": null
+    },
+    "time_maintenance_reboot_due": null,
+    "platform_config": null,
+    "instance_configuration_id": null,
+    "licensing_configs": null,
+    "compute_host_group_id": null
+  }
+]

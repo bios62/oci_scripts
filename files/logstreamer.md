@@ -1,3 +1,75 @@
+# logstreamer.py — usage and notes
+
+Summary
+-------
+`logstreamer.py` streams OCI Audit events for a specified date range into a single
+JSON array file. It chunks the time range into manageable windows to avoid large
+API requests and supports optional filtering of events by name.
+
+Prerequisites
+-------------
+- Python 3
+- OCI Python SDK: `pip install oci`
+- A valid OCI config at `~/.oci/config` (or provide an alternate path via
+  `--ociconfig`) with a profile containing the tenancy OCID.
+
+Date format
+-----------
+- All dates must be supplied in `DD.MM.YY` format (for example `01.12.25`).
+  The end date is inclusive (the script queries up to the end of the provided
+  day).
+
+CLI options
+-----------
+- `--startdate` (required): Start date in `DD.MM.YY` format.
+- `--enddate` (required): End date in `DD.MM.YY` format (inclusive).
+- `--profilename` (required): OCI profile name from your OCI config (e.g. `DEFAULT`).
+- `--outputfile` (required): Path to the JSON file that will contain the audit events.
+- `--eventfilter` (optional): A semicolon-separated list of regular expressions
+  applied to the event name (e.g. `Create.*;Delete.*`). If omitted, all events
+  are written to the output file.
+- `--ociconfig` (optional): Path to an alternate OCI config file (defaults to the
+  standard `~/.oci/config`).
+
+Behavior and notes
+------------------
+- The script uses the tenancy value from the OCI config as the `compartment_id`
+  when calling the Audit API. Ensure the profile's tenancy is appropriate for
+  the audit data you expect to fetch.
+- The default chunk size is controlled by `MAX_CHUNK_DAYS` in the source (7 days)
+  to keep requests small and paginated.
+- Output is a single JSON array (pretty-printed). The script also writes a
+  small summary of event name counts to `allevents.json` in the working
+  directory.
+- For additional debug output, set `DEBUG = True` near the top of
+  `logstreamer.py` and re-run.
+
+Example
+-------
+Fetch audit events for the first week of January 2025 and save them to
+`audit.json`:
+
+```bash
+python projects/oci_scripts/files/logstreamer.py \
+  --startdate 01.01.25 \
+  --enddate 07.01.25 \
+  --profilename DEFAULT \
+  --outputfile audit.json
+```
+
+Filter example (only events whose name matches `Create.*` or `Delete.*`):
+
+```bash
+python projects/oci_scripts/files/logstreamer.py \
+  --startdate 01.01.25 \
+  --enddate 07.01.25 \
+  --profilename DEFAULT \
+  --outputfile audit_filtered.json \
+  --eventfilter 'Create.*;Delete.*'
+```
+
+If you want, I can also update the `--eventfilter` help string in the script
+so the CLI help accurately describes its behavior. Would you like that?
 **Logstreamer** — OCI Audit streaming utility
 
 - **Purpose**: Stream OCI Audit events for a given date range into a single, valid JSON array. The script splits large ranges into smaller chunks (up to 7 days per chunk by default) and paginates through the Audit API to avoid memory or API limits.
